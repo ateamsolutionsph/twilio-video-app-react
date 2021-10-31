@@ -12,14 +12,17 @@ export enum Steps {
   deviceSelectionStep,
 }
 
-export default function PreJoinScreens() {
+export default function PreJoinScreens(props: any) {
   const { user } = useAppState();
   const { getAudioAndVideoTracks } = useVideoContext();
   const { URLRoomName } = useParams();
   const [step, setStep] = useState(Steps.roomNameStep);
 
-  const [name, setName] = useState<string>(user?.displayName || '');
-  const [roomName, setRoomName] = useState<string>('');
+  console.log('PREJOIN');
+  console.log(props.name);
+
+  const [name, setName] = useState<string>(props.name || '');
+  const [roomName, setRoomName] = useState<string>(props.room);
 
   const [mediaError, setMediaError] = useState<Error>();
 

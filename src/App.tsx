@@ -11,6 +11,29 @@ import Room from './components/Room/Room';
 import useHeight from './hooks/useHeight/useHeight';
 import useRoomState from './hooks/useRoomState/useRoomState';
 
+import axios from 'axios';
+
+let name: string;
+
+const getParameterByName = (name: string) => {
+  let url = window.location.href;
+
+  name = name.replace(/[[\]]/g, '\\$&');
+  let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+  let results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
+const getAttendeeInfoFromServer = (id: string, token: string) => {
+  const url = 'http://localhost:3000/attendeeDetails?id=' + id + '&token=' + token;
+
+  return axios.get(url).then(response => {
+    name = response.data[0].firstName + ' ' + response.data[0].lastName;
+  });
+};
+
 const Container = styled('div')({
   display: 'grid',
   gridTemplateRows: '1fr auto',
@@ -27,6 +50,10 @@ const Main = styled('main')(({ theme }: { theme: Theme }) => ({
 
 export default function App() {
   const roomState = useRoomState();
+  const attendeeId = getParameterByName('id') ?? '1';
+  const api_token = getParameterByName('token') ?? '';
+  const room = getParameterByName('room');
+  getAttendeeInfoFromServer(attendeeId, api_token).then(response => {});
 
   // Here we would like the height of the main container to be the height of the viewport.
   // On some mobile browsers, 'height: 100vh' sets the height equal to that of the screen,
@@ -38,7 +65,7 @@ export default function App() {
   return (
     <Container style={{ height }}>
       {roomState === 'disconnected' ? (
-        <PreJoinScreens />
+        <PreJoinScreens name={name} room={room} />
       ) : (
         <Main>
           <ReconnectingNotification />
