@@ -50,6 +50,8 @@ function addLinks(text: string) {
 
 export default function TextMessage({ body, isLocalParticipant }: TextMessageProps) {
   const classes = useStyles();
+  var Filter = require('bad-words'),
+    filter = new Filter();
 
   return (
     <div>
@@ -58,7 +60,7 @@ export default function TextMessage({ body, isLocalParticipant }: TextMessagePro
           [classes.isLocalParticipant]: isLocalParticipant,
         })}
       >
-        <div>{addLinks(body)}</div>
+        <div>{filter.clean(addLinks(body))}</div>
       </div>
     </div>
   );
