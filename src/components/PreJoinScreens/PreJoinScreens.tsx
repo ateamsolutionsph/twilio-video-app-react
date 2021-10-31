@@ -6,28 +6,49 @@ import RoomNameScreen from './RoomNameScreen/RoomNameScreen';
 import { useAppState } from '../../state';
 import { useParams } from 'react-router-dom';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
+import axios from 'axios';
+
+const getParameterByName = (name: string) => {
+  let url = window.location.href;
+
+  name = name.replace(/[[\]]/g, '\\$&');
+  let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+  let results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
+const getAttendeeInfoFromServer = (id: string, token: string) => {
+  const url = 'http://localhost:3000/attendeeDetails?id=' + id + '&token=' + token;
+
+  return axios.get(url).then(response => {
+    return response.data[0].firstName + ' ' + response.data[0].lastName;
+  });
+};
 
 export enum Steps {
   roomNameStep,
   deviceSelectionStep,
 }
 
-export default function PreJoinScreens(props: any) {
+export default function PreJoinScreens() {
   const { user } = useAppState();
   const { getAudioAndVideoTracks } = useVideoContext();
   const { URLRoomName } = useParams();
   const [step, setStep] = useState(Steps.roomNameStep);
 
-  const [name, setName] = useState<string>(props.name || '');
-  const [roomName, setRoomName] = useState<string>(props.room);
+  const attendeeId = getParameterByName('id') ?? '1';
+  const api_token = getParameterByName('token') ?? '';
+  const room = getParameterByName('room');
+  getAttendeeInfoFromServer(attendeeId, api_token).then(response => {
+    setName(response);
+  });
+
+  const [name, setName] = useState<string>(user?.displayName || '');
+  const [roomName, setRoomName] = useState<string>(room || '');
 
   const [mediaError, setMediaError] = useState<Error>();
-
-  useEffect(() => {
-    if (props.name != '') {
-      setName(props.name);
-    }
-  });
 
   useEffect(() => {
     if (URLRoomName) {
