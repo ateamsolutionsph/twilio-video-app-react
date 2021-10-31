@@ -111,45 +111,6 @@ export default function Menu(props: { buttonClassName?: string }) {
             <Typography variant="body1">Flip Camera</Typography>
           </MenuItem>
         )}
-
-        {roomType !== 'peer-to-peer' && roomType !== 'go' && (
-          <MenuItem
-            disabled={isFetching}
-            onClick={() => {
-              setMenuOpen(false);
-              if (isRecording) {
-                updateRecordingRules(room!.sid, [{ type: 'exclude', all: true }]);
-              } else {
-                updateRecordingRules(room!.sid, [{ type: 'include', all: true }]);
-              }
-            }}
-            data-cy-recording-button
-          >
-            <IconContainer>{isRecording ? <StopRecordingIcon /> : <StartRecordingIcon />}</IconContainer>
-            <Typography variant="body1">{isRecording ? 'Stop' : 'Start'} Recording</Typography>
-          </MenuItem>
-        )}
-
-        <Hidden smDown>
-          <MenuItem
-            onClick={() => {
-              VideoRoomMonitor.toggleMonitor();
-              setMenuOpen(false);
-            }}
-          >
-            <IconContainer>
-              <SearchIcon style={{ fill: '#707578', width: '0.9em' }} />
-            </IconContainer>
-            <Typography variant="body1">Room Monitor</Typography>
-          </MenuItem>
-        </Hidden>
-
-        <MenuItem onClick={() => setAboutOpen(true)}>
-          <IconContainer>
-            <InfoIconOutlined />
-          </IconContainer>
-          <Typography variant="body1">About</Typography>
-        </MenuItem>
       </MenuContainer>
       <AboutDialog
         open={aboutOpen}
