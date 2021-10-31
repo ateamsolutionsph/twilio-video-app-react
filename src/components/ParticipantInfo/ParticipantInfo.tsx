@@ -170,7 +170,7 @@ export default function ParticipantInfo({
       data-cy-participant={participant.identity}
     >
       <div className={classes.infoContainer}>
-        <NetworkQualityLevel participant={participant} />
+        {/* <NetworkQualityLevel participant={participant} /> */}
         <div className={classes.infoRowBottom}>
           {isScreenShareEnabled && (
             <span className={classes.screenShareIconContainer}>

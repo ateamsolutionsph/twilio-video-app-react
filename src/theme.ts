@@ -35,6 +35,8 @@ export default createTheme({
       '@global': {
         'html, body, #root': {
           height: '100%',
+          backgroundColor: 'transparent',
+          background: 'rgba(255, 255, 255, 0.85)',
         },
       },
     },
