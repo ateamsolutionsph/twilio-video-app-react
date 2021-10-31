@@ -72,6 +72,7 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
                 fullWidth
                 size="small"
                 value={name}
+                disabled
                 onChange={handleNameChange}
               />
             </div>
@@ -87,6 +88,7 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
               fullWidth
               size="small"
               value={roomName}
+              disabled
               onChange={handleRoomNameChange}
             />
           </div>
