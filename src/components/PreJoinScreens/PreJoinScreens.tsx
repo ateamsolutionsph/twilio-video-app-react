@@ -40,7 +40,7 @@ export default function PreJoinScreens() {
 
   const attendeeId = getParameterByName('id') ?? '1';
   const api_token = getParameterByName('token') ?? '';
-  const room = getParameterByName('room');
+  const room = getParameterByName('room') ?? '';
   getAttendeeInfoFromServer(attendeeId, api_token).then(response => {
     setName(response);
   });
@@ -49,15 +49,6 @@ export default function PreJoinScreens() {
   const [roomName, setRoomName] = useState<string>(room || '');
 
   const [mediaError, setMediaError] = useState<Error>();
-
-  useEffect(() => {
-    if (URLRoomName) {
-      setRoomName(URLRoomName);
-      if (user?.displayName) {
-        setStep(Steps.deviceSelectionStep);
-      }
-    }
-  }, [user, URLRoomName]);
 
   useEffect(() => {
     if (step === Steps.deviceSelectionStep && !mediaError) {
@@ -73,7 +64,7 @@ export default function PreJoinScreens() {
     event.preventDefault();
     // If this app is deployed as a twilio function, don't change the URL because routing isn't supported.
     if (!window.location.origin.includes('twil.io')) {
-      window.history.replaceState(null, '', window.encodeURI(`/room/${roomName}${window.location.search || ''}`));
+      window.history.replaceState(null, '', window.encodeURI(`/room/${room}${window.location.search || ''}`));
     }
     setStep(Steps.deviceSelectionStep);
   };
@@ -84,7 +75,7 @@ export default function PreJoinScreens() {
       {step === Steps.roomNameStep && (
         <RoomNameScreen
           name={name}
-          roomName={roomName}
+          roomName={room}
           setName={setName}
           setRoomName={setRoomName}
           handleSubmit={handleSubmit}

@@ -4,6 +4,10 @@ import { Link } from '@material-ui/core';
 import linkify from 'linkify-it';
 import { makeStyles } from '@material-ui/core/styles';
 
+const filteredWords = {
+  list: ['fck', 'fvck'],
+};
+
 const useStyles = makeStyles({
   messageContainer: {
     borderRadius: '16px',
@@ -51,7 +55,7 @@ function addLinks(text: string) {
 export default function TextMessage({ body, isLocalParticipant }: TextMessageProps) {
   const classes = useStyles();
   var Filter = require('bad-words'),
-    filter = new Filter();
+    filter = new Filter(filteredWords);
 
   return (
     <div>
