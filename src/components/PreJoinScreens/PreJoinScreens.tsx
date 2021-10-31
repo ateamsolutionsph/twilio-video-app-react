@@ -18,13 +18,16 @@ export default function PreJoinScreens(props: any) {
   const { URLRoomName } = useParams();
   const [step, setStep] = useState(Steps.roomNameStep);
 
-  console.log('PREJOIN');
-  console.log(props.name);
-
   const [name, setName] = useState<string>(props.name || '');
   const [roomName, setRoomName] = useState<string>(props.room);
 
   const [mediaError, setMediaError] = useState<Error>();
+
+  useEffect(() => {
+    if (props.name != '') {
+      setName(props.name);
+    }
+  });
 
   useEffect(() => {
     if (URLRoomName) {

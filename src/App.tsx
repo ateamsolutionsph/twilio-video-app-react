@@ -13,7 +13,7 @@ import useRoomState from './hooks/useRoomState/useRoomState';
 
 import axios from 'axios';
 
-let name: string;
+let attendeeName: string = '';
 
 const getParameterByName = (name: string) => {
   let url = window.location.href;
@@ -30,7 +30,7 @@ const getAttendeeInfoFromServer = (id: string, token: string) => {
   const url = 'http://localhost:3000/attendeeDetails?id=' + id + '&token=' + token;
 
   return axios.get(url).then(response => {
-    name = response.data[0].firstName + ' ' + response.data[0].lastName;
+    return (attendeeName = response.data[0].firstName + ' ' + response.data[0].lastName);
   });
 };
 
@@ -53,7 +53,10 @@ export default function App() {
   const attendeeId = getParameterByName('id') ?? '1';
   const api_token = getParameterByName('token') ?? '';
   const room = getParameterByName('room');
-  getAttendeeInfoFromServer(attendeeId, api_token).then(response => {});
+  getAttendeeInfoFromServer(attendeeId, api_token).then(response => {
+    console.log(response);
+    console.log('IVAN');
+  });
 
   // Here we would like the height of the main container to be the height of the viewport.
   // On some mobile browsers, 'height: 100vh' sets the height equal to that of the screen,
@@ -65,7 +68,7 @@ export default function App() {
   return (
     <Container style={{ height }}>
       {roomState === 'disconnected' ? (
-        <PreJoinScreens name={name} room={room} />
+        <PreJoinScreens name={attendeeName} room={room} />
       ) : (
         <Main>
           <ReconnectingNotification />
