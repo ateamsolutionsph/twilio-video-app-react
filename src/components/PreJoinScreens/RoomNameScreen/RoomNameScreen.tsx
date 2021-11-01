@@ -72,8 +72,8 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
                 fullWidth
                 size="small"
                 value={name}
-                disabled
                 onChange={handleNameChange}
+                InputProps={{ readOnly: true }}
               />
             </div>
           )}
@@ -88,8 +88,8 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
               fullWidth
               size="small"
               value={roomName}
-              disabled
               onChange={handleRoomNameChange}
+              InputProps={{ readOnly: true }}
             />
           </div>
         </div>
