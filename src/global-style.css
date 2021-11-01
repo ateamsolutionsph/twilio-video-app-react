@@ -1,0 +1,35 @@
+:root {
+  /************************
+   **** Change Me Here *****
+   *************************/
+  /* Use for button color */
+  --color-assetColor: #0075b8;
+  /* Use for background color with opacity
+      concatenate "asset color" + d8 for opacity effect */
+  --color-assetBgColor: #ffffffd8;
+
+  /************************
+   **** Specific Styles ****
+   *************************/
+  /* Intro Container and PreJoin Background Color */
+  --color-main: var(--color-assetBgColor);
+
+  /*  Menu Bar - Footer Background Color */
+  --color-menuBar: var(--color-assetBgColor);
+
+  /* Menu Bar - Room Name Text Color */
+  --color-text-roomName: #111111;
+
+  /* Intro Container - Continue Button Style */
+  --color-background-continueBtn: var(--color-assetColor);
+  --color-text-continueBtn: #ffffff;
+
+  /* Device Selection Screen - Join Now Button */
+  --color-background-joinNowBtn: var(--color-assetColor);
+  --color-text-joinNowBtn: #ffffff;
+
+  /* Device Selection Screen - Cancel Button */
+  --color-background-cancelBtn: #ffffff;
+  --color-text-cancelBtn: var(--color-assetColor);
+  --color-border-cancelBtn: 2px solid var(--color-assetColor);
+}

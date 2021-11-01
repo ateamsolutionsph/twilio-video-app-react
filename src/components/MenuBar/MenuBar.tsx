@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       background: 'transparent',
-      backgroundColor: 'rgba(255, 255, 255, 0.85)',
+      backgroundColor: 'var(--color-menuBar)',
       bottom: 0,
       left: 0,
       right: 0,
@@ -60,6 +60,9 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
+    roomName: {
+      color: 'var(--color-text-roomName)',
+    },
   })
 );
 
@@ -83,7 +86,7 @@ export default function MenuBar() {
           <Hidden smDown>
             <Grid style={{ flex: 1 }}>
               <Typography variant="body1">
-                <h3>{room!.name}</h3>
+                <h3 className={classes.roomName}>{room!.name}</h3>
               </Typography>
             </Grid>
           </Hidden>
