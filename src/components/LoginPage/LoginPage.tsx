@@ -53,6 +53,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+const getParameterByName = (name: string) => {
+  let url = window.location.href;
+
+  name = name.replace(/[[\]]/g, '\\$&');
+  let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+  let results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
 export default function LoginPage() {
   const classes = useStyles();
   const { signIn, user, isAuthReady } = useAppState();
@@ -61,13 +72,19 @@ export default function LoginPage() {
   const [passcode, setPasscode] = useState('');
   const [authError, setAuthError] = useState<Error | null>(null);
 
+  const attendeeId = getParameterByName('id') ?? '1';
+  const api_token = getParameterByName('token') ?? '';
+  const room = getParameterByName('room') ?? '';
+
   const isAuthEnabled = Boolean(process.env.REACT_APP_SET_AUTH);
 
   const login = () => {
     setAuthError(null);
     signIn?.(passcode)
       .then(() => {
-        history.replace(location?.state?.from || { pathname: '/' });
+        history.replace(
+          location?.state?.from || { pathname: '/?id=' + attendeeId + '&token=' + api_token + '&room=' + room }
+        );
       })
       .catch(err => setAuthError(err));
   };
@@ -78,7 +95,7 @@ export default function LoginPage() {
   };
 
   if (user || !isAuthEnabled) {
-    history.replace('/');
+    history.replace('/?id=' + attendeeId + '&token=' + api_token + '&room=' + room);
   }
 
   if (!isAuthReady) {
