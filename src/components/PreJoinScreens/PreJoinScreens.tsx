@@ -20,7 +20,7 @@ const getParameterByName = (name: string) => {
 };
 
 const getAttendeeInfoFromServer = (id: string, token: string) => {
-  const url = 'http://localhost:3000/attendeeDetails?id=' + id + '&token=' + token;
+  const url = 'https://stg.livehive.ph/api/attendeeDetails?id=' + id + '&token=' + token;
 
   return axios.get(url).then(response => {
     return response.data[0].firstName + ' ' + response.data[0].lastName;
@@ -39,7 +39,7 @@ export default function PreJoinScreens() {
   const [step, setStep] = useState(Steps.roomNameStep);
 
   const attendeeId = getParameterByName('id') ?? '1';
-  const api_token = getParameterByName('token') ?? '';
+  const api_token = '09aa908b7ef5abc8d78de5b1b246a0e5';
   const room = getParameterByName('room') ?? '';
   getAttendeeInfoFromServer(attendeeId, api_token).then(response => {
     setName(response);
