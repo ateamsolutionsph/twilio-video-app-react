@@ -3,9 +3,21 @@ import { useHistory } from 'react-router-dom';
 
 const endpoint = process.env.REACT_APP_TOKEN_ENDPOINT || '/token';
 
+const getParameterByName = (name: string) => {
+  let url = window.location.href;
+
+  name = name.replace(/[[\]]/g, '\\$&');
+  let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+  let results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
 export function getPasscode() {
-  const match = window.location.search.match(/passcode=(.*)&?/);
-  const passcode = match ? match[1] : window.sessionStorage.getItem('passcode');
+  const passcode = getParameterByName('passcode');
+  //const match = window.location.search.match(/passcode=(.*)&?/);
+  //const passcode = match ? match[1] : window.sessionStorage.getItem('passcode');
   return passcode;
 }
 
@@ -112,7 +124,7 @@ export default function usePasscodeAuth() {
           if (verification?.isValid) {
             setUser({ passcode } as any);
             window.sessionStorage.setItem('passcode', passcode);
-            history.replace(window.location.pathname);
+            //history.replace(window.location.pathname);
           }
         })
         .then(() => setIsAuthReady(true));
