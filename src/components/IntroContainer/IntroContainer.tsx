@@ -6,13 +6,14 @@ import TwilioLogo from './TwilioLogo';
 import { useAppState } from '../../state';
 import UserMenu from './UserMenu/UserMenu';
 import { useLocation } from 'react-router-dom';
+import '../../global-style.css';
 
 const useStyles = makeStyles((theme: Theme) => ({
   background: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'rgb(40, 42, 43)',
+    background: 'var(--color-main)',
     height: '100%',
   },
   container: {

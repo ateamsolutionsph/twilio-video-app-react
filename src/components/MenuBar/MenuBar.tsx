@@ -16,7 +16,8 @@ import ToggleScreenShareButton from '../Buttons/ToogleScreenShareButton/ToggleSc
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      backgroundColor: theme.palette.background.default,
+      background: 'transparent',
+      backgroundColor: 'var(--color-menuBar)',
       bottom: 0,
       left: 0,
       right: 0,
@@ -59,6 +60,9 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
+    roomName: {
+      color: 'var(--color-text-roomName)',
+    },
   })
 );
 
@@ -81,7 +85,9 @@ export default function MenuBar() {
         <Grid container justifyContent="space-around" alignItems="center">
           <Hidden smDown>
             <Grid style={{ flex: 1 }}>
-              <Typography variant="body1">{room!.name}</Typography>
+              <Typography variant="body1">
+                <h3 className={classes.roomName}>{room!.name}</h3>
+              </Typography>
             </Grid>
           </Hidden>
           <Grid item>

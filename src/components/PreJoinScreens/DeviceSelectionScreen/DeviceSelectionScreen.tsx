@@ -50,6 +50,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '0.8em 0',
     margin: 0,
   },
+  joinNowButton: {
+    backgroundColor: 'var(--color-background-joinNowBtn)',
+    color: 'var(--color-text-joinNowBtn)',
+  },
+  cancelButton: {
+    backgroundColor: 'var(--color-background-cancelBtn)',
+    color: 'var(--color-text-cancelBtn)',
+    border: 'var(--color-border-cancelBtn)',
+  },
 }));
 
 interface DeviceSelectionScreenProps {
@@ -115,15 +124,15 @@ export default function DeviceSelectionScreen({ name, roomName, setStep }: Devic
               </Hidden>
             </div>
             <div className={classes.joinButtons}>
-              <Button variant="outlined" color="primary" onClick={() => setStep(Steps.roomNameStep)}>
+              <Button variant="outlined" className={classes.cancelButton} onClick={() => setStep(Steps.roomNameStep)}>
                 Cancel
               </Button>
               <Button
                 variant="contained"
-                color="primary"
                 data-cy-join-now
                 onClick={handleJoin}
                 disabled={disableButtons}
+                className={classes.joinNowButton}
               >
                 Join Now
               </Button>

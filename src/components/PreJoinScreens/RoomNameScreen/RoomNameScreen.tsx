@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
+    backgroundColor: 'var(--color-background-continueBtn)',
+    color: 'var(--color-text-continueBtn)',
   },
 }));
 
@@ -72,8 +74,8 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
                 fullWidth
                 size="small"
                 value={name}
-                disabled
                 onChange={handleNameChange}
+                InputProps={{ readOnly: true }}
               />
             </div>
           )}
@@ -88,19 +90,13 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
               fullWidth
               size="small"
               value={roomName}
-              disabled
               onChange={handleRoomNameChange}
+              InputProps={{ readOnly: true }}
             />
           </div>
         </div>
         <Grid container justifyContent="flex-end">
-          <Button
-            variant="contained"
-            type="submit"
-            color="primary"
-            disabled={!name || !roomName}
-            className={classes.continueButton}
-          >
+          <Button variant="contained" type="submit" disabled={!name || !roomName} className={classes.continueButton}>
             Continue
           </Button>
         </Grid>
