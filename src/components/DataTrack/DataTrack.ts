@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { DataTrack as IDataTrack } from 'twilio-video';
 
-import useLocalAudioToggle from '../../hooks/useLocalAudioToggle/useLocalAudioToggle';
+import { useLocalAudioMuteAll } from '../../hooks/useLocalAudioToggle/useLocalAudioToggle';
 
 export default function DataTrack({ track }: { track: IDataTrack }) {
-  const [isAudioEnabled, toggleAudioEnabled] = useLocalAudioToggle();
+  const [toggleAudioMuteAll] = useLocalAudioMuteAll();
 
   const listenMuteAllMessage = (message: string) => {
     if (message === 'global-mute-all') {
-      toggleAudioEnabled();
+      toggleAudioMuteAll();
     }
   };
 
