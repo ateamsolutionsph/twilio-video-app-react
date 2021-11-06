@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import MicOffIcon from '@material-ui/icons/CommentOutlined';
+import MicOffIcon from '../../../icons/MicOffIcon';
 
 import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
 import { Button } from '@material-ui/core';
