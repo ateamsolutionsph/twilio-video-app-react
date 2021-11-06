@@ -38,7 +38,7 @@ export default function PreJoinScreens() {
   const { URLRoomName } = useParams();
   const [step, setStep] = useState(Steps.roomNameStep);
 
-  const attendeeId = getParameterByName('id') ?? '1';
+  const attendeeId = getParameterByName('id') ?? '';
   const api_token = getParameterByName('token') ?? '';
   const room = getParameterByName('room') ?? '';
   getAttendeeInfoFromServer(attendeeId, api_token).then(response => {
