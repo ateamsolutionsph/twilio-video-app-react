@@ -16,3 +16,16 @@ export default function useLocalAudioToggle() {
 
   return [isEnabled, toggleAudioEnabled] as const;
 }
+
+export function useLocalAudioMuteAll() {
+  const { localTracks } = useVideoContext();
+  const audioTrack = localTracks.find(track => track.kind === 'audio') as LocalAudioTrack;
+
+  const toggleAudioMuteAll = useCallback(() => {
+    if (audioTrack) {
+      audioTrack.disable();
+    }
+  }, [audioTrack]);
+
+  return [toggleAudioMuteAll] as const;
+}
