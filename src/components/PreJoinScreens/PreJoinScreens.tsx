@@ -20,7 +20,7 @@ const getParameterByName = (name: string) => {
 };
 
 const getAttendeeInfoFromServer = (id: string, token: string) => {
-  const url = 'https://stg.livehive.ph/api/attendeeDetails?id=' + id + '&token=' + token;
+  const url = 'https://www.livehive.ph/api/attendeeDetails?id=' + id + '&token=' + token;
 
   return axios.get(url).then(response => {
     return response.data[0].firstName + ' ' + response.data[0].lastName;
